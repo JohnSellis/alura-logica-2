@@ -1,0 +1,71 @@
+<h3>funcoes</h3>
+<canvas id="tela" width="600" height="400"></canvas>
+
+<script type="text/javascript">
+
+function quadrado(x,y,w,h,color){
+    var canvas = document.getElementById("tela");
+    var ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+}
+
+function escreveQuadrado(x,y,cor){
+    var tela = document.getElementById("tela");
+    var largura = 50;
+    var altura = 50;
+    var pincel = tela.getContext("2d");
+
+    pincel.fillStyle = cor;
+    pincel.fillRect(x, y, largura, altura);
+}
+
+function desenhaBolaAzul(centerX,centerY){
+  var tela = document.getElementById("tela");
+  var context = tela.getContext("2d");
+
+  var radius = 25;
+  var startAngle = 0;
+  var endAngle = 2 * Math.PI;
+
+  context.beginPath();
+  context.arc(centerX, centerY, radius, startAngle, endAngle);
+  context.fillStyle = 'blue';
+  context.fill();
+
+}
+var left, right;
+left = 0;
+right = 2;
+
+quadrado(0,0,600,400,"gray");
+var canvas = document.getElementById("tela");
+var atira = function(event) {
+  var x = event.pageX - canvas.offsetLeft;
+  var y = event.pageY - canvas.offsetTop;
+  var ctx = canvas.getContext("2d");
+
+  if(event.button === left){
+    ctx.fillStyle = "blue";
+  } else if (event.button === right) {
+    ctx.fillStyle = "red";
+  } else {
+    ctx.fillStyle = "yellow";
+  }
+  ctx.beginPath();
+  ctx.arc(x,y,10,0,2*Math.PI);
+  ctx.fill();
+  
+  console.log("alguem clicou no canvas: " + x + " " + y);
+}
+
+canvas.onmousedown = atira;
+
+canvas.oncontextmenu = function (evento) {
+    console.log("botao direito");
+    evento.preventDefault();
+};
+
+</script>
+

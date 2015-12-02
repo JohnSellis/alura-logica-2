@@ -1,0 +1,38 @@
+<h3>funcoes</h3>
+<canvas id="tela" width="300" height="300"></canvas>
+
+<script type="text/javascript">
+
+function escreveQuadrado(x,y,cor){
+    var tela = document.getElementById("tela");
+    var largura = 50;
+    var altura = 50;
+    var pincel = tela.getContext("2d");
+
+    pincel.fillStyle = cor;
+    pincel.fillRect(x, y, largura, altura);
+}
+
+function desenhaBolaAzul(centerX,centerY){
+  var tela = document.getElementById("tela");
+  var context = tela.getContext("2d");
+
+  var radius = 25;
+  var startAngle = 0;
+  var endAngle = 2 * Math.PI;
+
+  context.beginPath();
+  context.arc(centerX, centerY, radius, startAngle, endAngle);
+  context.fillStyle = 'blue';
+  context.fill();
+
+}
+
+for (x = 0; x < 300; x+=50){
+  escreveQuadrado(x,0,"green");
+  escreveQuadrado(x,50,"red");
+  desenhaBolaAzul(x,100);
+}
+
+</script>
+

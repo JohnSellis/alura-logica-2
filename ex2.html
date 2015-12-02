@@ -1,0 +1,46 @@
+<input type="text" id="d1" />
+<input type="text" id="d2" />
+<input type="text" id="d3" />
+<input type="text" id="d4" />
+<input type="text" id="d5" />
+<input type="text" id="d6" />
+<input type="submit" value="Adicione e verifique no Bingo!"
+                    id="verificar"/>
+<script>
+var sorteados = [];
+var adicionarSorteado = function(numero) {
+  if (numero > 59) {
+    return;
+  }
+  for(var i = 0; i < sorteados.length; i = i + 1) {
+    if(sorteados[i] == numero) {
+      return;
+    }
+  }
+  sorteados.push(numero);
+  console.log(sorteados);
+};
+var verificar = function(){
+  var palpites = [];
+  for (var i=1;i<=6;i++){
+    palpites.push(parseInt(document.getElementById("d"+i).value));
+  }
+  console.log(palpites);
+  for (var s=0;s<sorteados.length;s++){
+    for (var p=0;p<palpites.length;p++){
+      if (sorteados[s]==palpites[p]){
+        document.write("Bom palpite: " + sorteados[s]);
+	break;
+      }
+    }
+  }
+  
+}
+
+while (sorteados.length < 6){
+  adicionarSorteado(Math.round(Math.random()*100));
+}
+var botao = document.getElementById("verificar");
+botao.onclick = verificar;
+
+</script>
