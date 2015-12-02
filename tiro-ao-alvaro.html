@@ -1,0 +1,76 @@
+<h3>Tiro ao Alvaro</h3>
+<div id="subTitle">Atirador: </div>
+<canvas id="tela" width="600" height="400"></canvas>
+
+<script type="text/javascript">
+  var tela = document.getElementById("tela");
+  var c = tela.getContext("2d");
+
+var sorteia = function(range){
+  return Math.round(Math.random()*range);
+}
+
+var circulo = function(x,y,raio,cor){
+  c.strokeStyle = cor;
+  c.beginPath();
+  c.lineWidth = 15;
+  c.arc(x,y,raio,0,2*Math.PI);
+  c.stroke();
+}
+
+var limpa = function(){
+  c.clearRect(0,0,600,400);
+}
+
+var alvoX;
+var alvoY;
+var raio = 40;
+
+var desenhaAlvo = function(x, y) {
+    circulo(x, y, raio, "white");
+    circulo(x, y, raio-10, "red");
+    circulo(x, y, raio-20, "white");
+    circulo(x, y, raio-30, "red");
+};
+
+var desenha = function() {
+  limpa();
+  alvoX = sorteia(600);
+  alvoY = sorteia(400);
+  desenhaAlvo(alvoX, alvoY);
+};
+
+var distancia = function(ax, ay, bx, by){
+  // pitagoras
+  var width = ax > bx ? ax - bx : bx - ax;
+  var heigth = ay > by ? ay - by : by - ay;
+  var c1 = width * width;
+  var c2 = heigth * heigth;
+  var h = Math.sqrt(c1+c2);
+  return h;
+}
+
+
+var timer = setInterval(desenha, 1000);
+
+tela.onclick = function(event){
+  var bx = event.pageX - tela.offsetLeft;
+  var by = event.pageY - tela.offsetTop;
+  var dist = distancia(alvoX, alvoY, bx, by);
+  var element = document.getElementById("subTitle");
+
+  if (raio < dist){
+    element.innerText = "Caolho!";
+  } else if (dist <= raio*0.1){
+    element.innerText = "Bad Ass";
+  } else if (dist <= raio*0.3){
+    element.innerText = "Big Player";
+  } else if (dist <= raio*0.7){
+    element.innerText = "Big Boy";
+  } else {
+    element.innerText = "Franco Atirador";
+  }
+}
+
+</script>
+
